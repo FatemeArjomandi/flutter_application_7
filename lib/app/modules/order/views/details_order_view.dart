@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_7/app/widgets/detail_order_chek_widget.dart';
+
+import '../../../widgets/select_detail_order_chek_widget.dart';
 
 class DetailsOrderView extends StatelessWidget {
   const DetailsOrderView({
@@ -115,80 +118,45 @@ class SendingOder extends StatefulWidget {
 }
 
 class _SendingOderState extends State<SendingOder> {
-  var selectedIndex = 0;
+  var _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         Text('ارسال' ' :', style: Theme.of(context).textTheme.titleMedium),
-        SizedBox(
-          width: 50,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    if (selectedIndex == 0) {
-                      selectedIndex = 1;
-                    } else {
-                      selectedIndex = 0;
-                    }
-                  });
-                },
-                child: Container(
-                  height: 20,
-                  width: 20,
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                          color: selectedIndex == 0 ? Colors.red : Colors.black,
-                          width: selectedIndex == 0 ? 4 : 0),
-                      borderRadius: BorderRadius.circular(20)),
-                ),
-              ),
-              Text('پیک',
-                  style: selectedIndex == 0
-                      ? Theme.of(context).textTheme.titleMedium
-                      : Theme.of(context)
-                          .textTheme
-                          .titleSmall!
-                          .copyWith(color: Colors.grey)),
-            ],
-          ),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  if (selectedIndex == 1) {
-                    selectedIndex = 0;
-                  } else {
-                    selectedIndex = 1;
-                  }
-                });
+        const SizedBox(width: 20),
+        Expanded(
+          child: SizedBox(
+            height: 50,
+            child: ListView.builder(
+              itemCount: 2,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                if (_selectedIndex == index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(right: 60),
+                    child: DetailOrderChekWidget(
+                      title: index == 0 ? 'پیک' : 'پست',
+                      color:  Colors.red 
+                    ),
+                  );
+                } else {
+                  return Padding(
+                    padding: const EdgeInsets.only(right: 60),
+                    child: SelectDetailOrderChekWidget(
+                      title: index == 0 ? 'پیک' : 'پست',
+                      color:  Colors.grey,
+                      changeSelectedIndex: () {
+                        setState(() {
+                          _selectedIndex = index;
+                        });
+                      },
+                    ),
+                  );
+                }
               },
-              child: Container(
-                height: 20,
-                width: 20,
-                decoration: BoxDecoration(
-                    border: Border.all(
-                        color: selectedIndex == 1 ? Colors.red : Colors.black,
-                        width: selectedIndex == 1 ? 4 : 0),
-                    borderRadius: BorderRadius.circular(20)),
-              ),
             ),
-            const SizedBox(width: 8),
-            Text('پست',
-                style: selectedIndex == 1
-                    ? Theme.of(context).textTheme.titleMedium
-                    : Theme.of(context)
-                        .textTheme
-                        .titleSmall!
-                        .copyWith(color: Colors.grey)),
-          ],
+          ),
         ),
       ],
     );

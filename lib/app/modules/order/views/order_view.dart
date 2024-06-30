@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import '../../../widgets/confirm_button_widget.dart';
 import 'details_order_view.dart';
@@ -22,17 +21,16 @@ class OrderView extends StatelessWidget {
             style: Theme.of(context).textTheme.titleLarge,
           ),
           leading: const Icon(
-                Icons.clear,
-                size: 30,
-              ),
-          
+            Icons.clear,
+            size: 30,
+          ),
           backgroundColor: Colors.white,
           elevation: 0,
         ),
         body: Padding(
           padding: const EdgeInsets.only(left: 20, right: 20),
           child: ListView(
-            children:const [
+            children: const [
               SizedBox(height: 40),
               TitelOrderWidget(),
               SizedBox(height: 40),
@@ -50,5 +48,3 @@ class OrderView extends StatelessWidget {
     );
   }
 }
-
-

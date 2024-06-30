@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_7/app/widgets/detail_order_chek_widget.dart';
+import 'package:flutter_application_7/app/widgets/select_detail_order_chek_widget.dart';
 
 class MoreDetailsOrderView extends StatefulWidget {
   const MoreDetailsOrderView({super.key});
@@ -13,7 +15,7 @@ class _MoreDetailsOrderViewState extends State<MoreDetailsOrderView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 260,
+      height: 265,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10), color: Colors.white),
       child: Padding(
@@ -95,109 +97,45 @@ class _CustomerTypState extends State<CustomerTyp> {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Text(
-          'نوع مشتری' ' :',
-          style: Theme.of(context).textTheme.titleMedium,
-        ),
-        SizedBox(
-          width: 50,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    if (selectedIndex == 0) {
-                    } else {
-                      selectedIndex = 0;
-                    }
-                  });
+        Text('نوع مشتری' ' :', style: Theme.of(context).textTheme.titleMedium),
+        Expanded(
+          child: SizedBox(
+              height: 50,
+              child: ListView.builder(
+                itemCount: 3,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  if (selectedIndex == index) {
+                    return Padding(
+                      padding: const EdgeInsets.only(right: 20),
+                      child: DetailOrderChekWidget(
+                          title: index == 0
+                              ? 'همه'
+                              : index == 1
+                                  ? 'حضوری'
+                                  : 'آنلاین',
+                          color: Colors.red),
+                    );
+                  } else {
+                    return Padding(
+                      padding: const EdgeInsets.only(right: 20),
+                      child: SelectDetailOrderChekWidget(
+                          title: index == 0
+                              ? 'همه'
+                              : index == 1
+                                  ? 'حضوری'
+                                  : 'آنلاین',
+                          color: Colors.grey,
+                          changeSelectedIndex: () {
+                            setState(() {
+                              selectedIndex = index;
+                            });
+                          }),
+                    );
+                  }
                 },
-                child: Container(
-                  height: 20,
-                  width: 20,
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                          color: selectedIndex == 0 ? Colors.red : Colors.black,
-                          width: selectedIndex == 0 ? 4 : 0),
-                      borderRadius: BorderRadius.circular(20)),
-                ),
-              ),
-              Text('همه',
-                  style: selectedIndex == 0
-                      ? Theme.of(context).textTheme.titleMedium
-                      : Theme.of(context)
-                          .textTheme
-                          .titleSmall!
-                          .copyWith(color: Colors.grey)),
-            ],
-          ),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  if (selectedIndex == 1) {
-                  } else {
-                    selectedIndex = 1;
-                  }
-                });
-              },
-              child: Container(
-                height: 20,
-                width: 20,
-                decoration: BoxDecoration(
-                    border: Border.all(
-                        color: selectedIndex == 1 ? Colors.red : Colors.black,
-                        width: selectedIndex == 1 ? 4 : 0),
-                    borderRadius: BorderRadius.circular(20)),
-              ),
-            ),
-            const SizedBox(width: 8),
-            Text('حضوری',
-                style: selectedIndex == 1
-                    ? Theme.of(context).textTheme.titleMedium
-                    : Theme.of(context)
-                        .textTheme
-                        .titleSmall!
-                        .copyWith(color: Colors.grey)),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  if (selectedIndex == 2) {
-                  } else {
-                    selectedIndex = 2;
-                  }
-                });
-              },
-              child: Container(
-                height: 20,
-                width: 20,
-                decoration: BoxDecoration(
-                    border: Border.all(
-                        color: selectedIndex == 2 ? Colors.red : Colors.black,
-                        width: selectedIndex == 2 ? 4 : 0),
-                    borderRadius: BorderRadius.circular(20)),
-              ),
-            ),
-            const SizedBox(width: 8),
-            Text('آنلاین',
-                style: selectedIndex == 2
-                    ? Theme.of(context).textTheme.titleMedium
-                    : Theme.of(context)
-                        .textTheme
-                        .titleSmall!
-                        .copyWith(color: Colors.grey)),
-          ],
+              )),
         ),
       ],
     );
